@@ -2,6 +2,8 @@ package com.adrinur.springboot.backend.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +28,9 @@ public class UsersServicesImpl implements UsersServices{
 	}
 
 	@Override
-	public void createUser(Users user) {
-		userRepository.save(user);
+	@Transactional
+	public Users createUser(Users user) {
+		return userRepository.save(user);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.adrinur.springboot.backend.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,19 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import lombok.ToString;
 
 
 @ToString
 
 
+
+
 @Table
 @Entity
-public class Users {
+public class Users implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idUser;
 	
 	@Column
 	private String userName;
@@ -39,18 +45,17 @@ public class Users {
 	@OneToMany
 	private List<Receipts> receipts;
 
-	
-	
+
 	/**
 	 * Getters & Setters | Users
 	 * @return
 	 */
 	public long getId() {
-		return id;
+		return idUser;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.idUser = id;
 	}
 
 	public String getName() {
