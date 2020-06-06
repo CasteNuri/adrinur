@@ -20,4 +20,8 @@ public class UsersController {
 		return userServices.getAllUsers();
 	}
 	
+	@GetMapping("/users/{id}")
+	public Users getUser(Long id) {
+		return userServices.getUser(id);
+	}
 }
