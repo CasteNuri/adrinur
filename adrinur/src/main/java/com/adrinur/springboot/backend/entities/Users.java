@@ -12,25 +12,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-import lombok.ToString;
 
-
-@ToString
-
-
-
-
-@Table
 @Entity
+@Table(name="users")
 public class Users implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUser;
+	private Long id;
 	
-	@Column
+	@Column(name="user_name")
 	private String userName;
 	
 	@Column
@@ -43,27 +36,28 @@ public class Users implements Serializable {
 	private String avatar;
 	
 	@OneToMany
-	private List<Receipts> receipts;
+	private List<Recipes> recipes;
 
-
+	
+	
 	/**
 	 * Getters & Setters | Users
 	 * @return
 	 */
-	public long getId() {
-		return idUser;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId(long id) {
-		this.idUser = id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getName() {
+	public String getUserName() {
 		return userName;
 	}
 
-	public void setName(String name) {
-		this.userName = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getEmail() {
@@ -88,6 +82,14 @@ public class Users implements Serializable {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public List<Recipes> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipes> recipes) {
+		this.recipes = recipes;
 	}
 	
 	

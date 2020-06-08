@@ -9,7 +9,7 @@ import com.adrinur.springboot.backend.entities.Ingredients;
 import com.adrinur.springboot.backend.services.IngredientsServices;
 
 @RestController
-public class IngredientsController {
+public class IngredientsRestController {
 
 	@Autowired
 	IngredientsServices ingredientsServices;

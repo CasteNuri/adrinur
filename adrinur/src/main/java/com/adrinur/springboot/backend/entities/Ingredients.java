@@ -1,5 +1,7 @@
 package com.adrinur.springboot.backend.entities;
 
+import java.io.Serializable;
+
 //import java.util.List;
 
 import javax.persistence.Column;
@@ -10,13 +12,15 @@ import javax.persistence.Id;
 //import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import lombok.ToString;
 
-@ToString
+
+
 
 @Table
 @Entity
-public class Ingredients {
+public class Ingredients implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +30,7 @@ public class Ingredients {
 	private String name;
 	
 	/*@ManyToMany
-	private List<Receipts> receipts;*/
+	private List<Recipes> recipes;*/
 
 	
 	/**

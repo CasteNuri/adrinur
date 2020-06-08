@@ -9,7 +9,7 @@ public interface UsersServices {
 
 	public List<Users> getAllUsers();
 	
-	public Users getUser(Long id);
+	public Users getUserById(Long id);
 	
 	public Users createUser(Users user);
 	

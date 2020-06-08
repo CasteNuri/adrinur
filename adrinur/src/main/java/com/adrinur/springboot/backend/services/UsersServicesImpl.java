@@ -13,17 +13,16 @@ import com.adrinur.springboot.backend.repositories.UsersRepository;
 @Service
 public class UsersServicesImpl implements UsersServices{
 
-	
 	@Autowired
-	UsersRepository userRepository;
+	private UsersRepository userRepository;
 	
 	@Override
 	public List<Users> getAllUsers() {
-		return userRepository.findAll();
+		return (List<Users>) userRepository.findAll();
 	}
 
 	@Override
-	public Users getUser(Long id) {
+	public Users getUserById(Long id) {
 		return userRepository.findById(id).get();
 	}
 
@@ -34,6 +33,7 @@ public class UsersServicesImpl implements UsersServices{
 	}
 
 	@Override
+	@Transactional
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
