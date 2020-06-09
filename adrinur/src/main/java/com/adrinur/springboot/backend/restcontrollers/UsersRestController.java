@@ -1,5 +1,7 @@
 package com.adrinur.springboot.backend.restcontrollers;
 
+
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +48,7 @@ public class UsersRestController {
 	@PostMapping("/users")
 	public ResponseEntity<?> createUser(@RequestBody Users user) {
 		Users userCreated = userServices.createUser(user);
+		//Base64.encodeBase64String(userCreated.getPassword());
 		return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
 	}
 	

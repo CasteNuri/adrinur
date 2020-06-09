@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -33,10 +35,17 @@ public class Recipes implements Serializable{
 	private String image;
 	
 	@ManyToMany
+		@JoinTable(name="recipes_ingredients", joinColumns = @JoinColumn(name = "codRec"), inverseJoinColumns = @JoinColumn(name = "serialNumber"))
 	private List<Ingredients> ingredients;
 	
 	@Column
 	private String quantities;
+	
+	@Column
+	private String time;
+	
+	@Column
+	private String dificulty;
 	
 	@Column
 	private String description;
@@ -113,6 +122,46 @@ public class Recipes implements Serializable{
 
 	public void setFavorite(boolean favorite) {
 		this.favorite = favorite;
+	}
+
+	public List<Ingredients> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredients> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public String getQuantities() {
+		return quantities;
+	}
+
+	public void setQuantities(String quantities) {
+		this.quantities = quantities;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getDificulty() {
+		return dificulty;
+	}
+
+	public void setDificulty(String dificulty) {
+		this.dificulty = dificulty;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
 	}
 	
 
