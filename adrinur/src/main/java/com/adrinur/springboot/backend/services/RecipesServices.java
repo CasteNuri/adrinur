@@ -10,6 +10,8 @@ public interface RecipesServices {
 	
 	public Recipes getRecipeById(Long id);
 	
+	public List<Recipes> getRecipesByType(String type);
+	
 	public Recipes createRecipe(Recipes recipe);
 	
 	public void deleteRecipe(Long id);

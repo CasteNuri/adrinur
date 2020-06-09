@@ -45,7 +45,7 @@ public class Recipes implements Serializable{
 	private String time;
 	
 	@Column
-	private String dificulty;
+	private String difficulty;
 	
 	@Column
 	private String description;
@@ -57,7 +57,7 @@ public class Recipes implements Serializable{
 	private int rating;
 	
 	@Column
-	private boolean favorite;
+	private Boolean favorite;
 	
 	@ManyToOne
 	private Users user;
@@ -116,11 +116,11 @@ public class Recipes implements Serializable{
 		this.rating = rating;
 	}
 
-	public boolean isFavorite() {
+	public Boolean getFavorite() {
 		return favorite;
 	}
 
-	public void setFavorite(boolean favorite) {
+	public void setFavorite(Boolean favorite) {
 		this.favorite = favorite;
 	}
 
@@ -148,12 +148,12 @@ public class Recipes implements Serializable{
 		this.time = time;
 	}
 
-	public String getDificulty() {
-		return dificulty;
+	public String getDifficulty() {
+		return difficulty;
 	}
 
-	public void setDificulty(String dificulty) {
-		this.dificulty = dificulty;
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	public Users getUser() {
