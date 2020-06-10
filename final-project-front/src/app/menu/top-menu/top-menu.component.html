@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <a class="navbar-brand m-r4" href="#">El Recetario</a>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['recipes']" [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{exact: true}">Recetas</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['recipes/add']" [routerLinkActive]="['active']">Crear receta</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['info']" [routerLinkActive]="['active']">Acerca de nosotros</a>
+    </li>
+  </ul>
+</nav>

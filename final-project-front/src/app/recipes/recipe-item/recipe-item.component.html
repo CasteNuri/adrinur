@@ -1,0 +1,16 @@
+  <div class="col-2 pl-2">
+    <img [src]="recipe.image" alt="" [title]="recipe.title">
+  </div>
+  <div class="col-4">
+    <a>{{recipe.title}}</a>
+  </div>
+  <div class="col">
+    <a>{{recipe.time}} min.</a>
+  </div>
+  <div class="col">
+    <a>{{recipe.difficulty}}</a>
+  </div>
+  <div class="col">
+    <static-star-rating [rating]="recipe.rating">
+    </static-star-rating>
+  </div>

@@ -31,11 +31,6 @@ public class UsersRestController {
 		return ResponseEntity.ok().body(userServices.getAllUsers());
 	}
 	
-	/*@GetMapping("/users/{id}")
-	public Users getUser(@PathVariable Long id) {
-		return userServices.getUser(id);
-	}*/
-	
 	@GetMapping("/users/dto/{id}")
 	public ResponseEntity<UsersDto> findUserDto(@PathVariable Long id) {
 		Users user = new Users();
@@ -44,6 +39,12 @@ public class UsersRestController {
 		return ResponseEntity.ok().body(userDto);
 	}
 	
+	
+	
+	
+	
+	
+	// In order to create a new user and add it to the ddbb
 	@PostMapping("/users")
 	public ResponseEntity<?> createUser(@RequestBody Users user) {
 		Users userCreated = userServices.createUser(user);
@@ -51,6 +52,8 @@ public class UsersRestController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
 	}
 	
+	
+	//This method allows the user to update his profile
 	@PutMapping("/users/updateUser/{id}")
     public ResponseEntity<Users> updateUser(@RequestBody Users user, @PathVariable Long id) {
         Users currentUser = userServices.getUserById(id);
@@ -66,6 +69,7 @@ public class UsersRestController {
         return new ResponseEntity<Users>(currentUser, HttpStatus.OK);
     }
 	
+	//This method is used to change an user's password whenever they forgot theirs
 	@PutMapping("/users/changePassword/{id}")
     public ResponseEntity<Users> updatePassword(@RequestBody Users user, @PathVariable Long id) {
         Users currentUser = userServices.getUserById(id);
