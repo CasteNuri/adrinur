@@ -1,10 +1,13 @@
 package com.adrinur.springboot.backend.restcontrollers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,11 +37,28 @@ public class RecipesRestController {
 	}
 	
 	@GetMapping("/recipes/detail/{id}")
-	public ResponseEntity<RecipesDto> getRecipesById(@PathVariable Long id) {
+	public ResponseEntity<?> getRecipesById(@PathVariable Long id) {
 		ModelMapper modelMapper = new ModelMapper();
-		Recipes recipe = recipesServices.getRecipeById(id);
-		RecipesDto recipeDto = modelMapper.map(recipe, RecipesDto.class);
-		return ResponseEntity.ok().body(recipeDto);
+		
+		Recipes recipe = null;
+		RecipesDto recipeDto = null;
+		Map<String,Object> errorResponse = new HashMap();
+		
+		try {
+			recipe = recipesServices.getRecipeById(id);
+			
+		} catch (DataAccessException e) {
+			errorResponse.put("mensaje", "Error al acceder a la base de datos");
+			errorResponse.put("error", e.getMessage().concat(": ")
+					.concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if(recipe == null) {
+			errorResponse.put("mensaje", "El cliente con ID".concat(id.toString().concat(" no existe")));
+			return new ResponseEntity<Map<String,Object>>(errorResponse, HttpStatus.NOT_FOUND);
+		}
+		recipeDto = modelMapper.map(recipe, RecipesDto.class);
+		return new ResponseEntity<RecipesDto>(recipeDto, HttpStatus.OK);
 	}
 	
 	@GetMapping("/recipes/resume/{type}")
@@ -81,9 +101,21 @@ public class RecipesRestController {
     }
 	
 	@PostMapping("/recipes")
-	public ResponseEntity<Recipes> createRecipe(@RequestBody Recipes recipe) {
-		Recipes newRecipe = recipesServices.createRecipe(recipe);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newRecipe);
+	public ResponseEntity<?> createRecipe(@RequestBody Recipes recipe) {
+		
+		Recipes newRecipe = null;
+		Map<String,Object> errorResponse = new HashMap();
+		try {
+			newRecipe = recipesServices.createRecipe(recipe);
+		} catch (DataAccessException e) {
+			errorResponse.put("mensaje", "Error al insertar en la base de datos");
+			errorResponse.put("error", e.getMessage()
+					.concat(": ")
+					.concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String,Object>>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		errorResponse.put("newRecipe", newRecipe);
+		return new ResponseEntity<Map<String,Object>>(errorResponse, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/recipes/{id}")
