@@ -7,12 +7,31 @@ public class RecipesDto {
 	private String title;
 	private String image;
 	private String quantities;
-	private String time;
+	private Long time;
 	private String difficulty;
 	private String description;
 	private int rating;
 	private boolean favorite;
 	private Users user;
+	
+	public RecipesDto(String title, String image, String quantities, Long time, String difficulty, String description,
+			int rating, boolean favorite, Users user) {
+		super();
+		this.title = title;
+		this.image = image;
+		this.quantities = quantities;
+		this.time = time;
+		this.difficulty = difficulty;
+		this.description = description;
+		this.rating = rating;
+		this.favorite = favorite;
+		this.user = user;
+	}
+	
+	public RecipesDto() {
+		
+	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -31,10 +50,10 @@ public class RecipesDto {
 	public void setQuantities(String quantities) {
 		this.quantities = quantities;
 	}
-	public String getTime() {
+	public Long getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(Long time) {
 		this.time = time;
 	}
 	public String getDifficulty() {
@@ -68,22 +87,7 @@ public class RecipesDto {
 		this.user = user;
 	}
 	
-	public RecipesDto(String title, String image, String quantities, String time, String difficulty, String description,
-			int rating, boolean favorite, Users user) {
-		super();
-		this.title = title;
-		this.image = image;
-		this.quantities = quantities;
-		this.time = time;
-		this.difficulty = difficulty;
-		this.description = description;
-		this.rating = rating;
-		this.favorite = favorite;
-		this.user = user;
-	}
-	public RecipesDto() {
-		
-	}
+	
 	
 	
 	

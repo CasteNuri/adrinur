@@ -42,16 +42,16 @@ public class Recipes implements Serializable{
 	private String quantities;
 	
 	@Column
-	private String time;
+	private Long time;
 	
 	@Column
 	private String difficulty;
 	
 	@Column
-	private String description;
+	private String type;
 	
 	@Column
-	private String type;
+	private String description;
 	
 	@Column
 	private int rating;
@@ -140,11 +140,11 @@ public class Recipes implements Serializable{
 		this.quantities = quantities;
 	}
 
-	public String getTime() {
+	public Long getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Long time) {
 		this.time = time;
 	}
 
