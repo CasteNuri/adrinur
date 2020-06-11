@@ -15,5 +15,8 @@ public interface UsersServices {
 	
 	public void deleteUser(Long id);
 	
+	public Users recipeAssociation(Long idRecipe, Long idUser);
+	
+	public Users deleteRecipe(Long idRecipe, Long idUser);
 	
 }

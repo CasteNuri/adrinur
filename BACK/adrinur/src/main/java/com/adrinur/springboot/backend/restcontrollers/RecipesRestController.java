@@ -31,6 +31,7 @@ public class RecipesRestController {
 	@Autowired
 	RecipesServices recipesServices;
 	
+	
 	@GetMapping("/recipes")
 	public ResponseEntity<?> getAllRecipes() {
 		return ResponseEntity.ok().body(recipesServices.getAllRecipes());
@@ -99,6 +100,31 @@ public class RecipesRestController {
         recipesServices.createRecipe(currentRecipe);
         return new ResponseEntity<Recipes>(currentRecipe, HttpStatus.OK);
     }
+	
+	
+	@PutMapping("/recipes/{idRecipe}/{idIngredient}")
+	public ResponseEntity<Recipes> addIngredient(@PathVariable Long idRecipe, @PathVariable Long idIngredient)  {
+		Recipes recipe = recipesServices.ingredientAssociation(idRecipe, idIngredient);
+		
+		if (idIngredient <= 0 || idIngredient == null || idRecipe <= 0 || idRecipe == null) {
+            return new ResponseEntity<Recipes>(HttpStatus.NO_CONTENT);
+        } 
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(recipe);
+	}
+	
+	@PutMapping("/recipes/delete/{idRecipe}/{idIngredient}")
+	public ResponseEntity<?> deleteIngredient(@PathVariable Long idRecipe, @PathVariable Long idIngredient)  {
+		recipesServices.deleteIngredient(idRecipe, idIngredient);
+		
+		if (idIngredient <= 0 || idIngredient == null || idRecipe <= 0 || idRecipe == null) {
+            return new ResponseEntity<Recipes>(HttpStatus.NO_CONTENT);
+        }
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	
 	
 	@PostMapping("/recipes")
 	public ResponseEntity<?> createRecipe(@RequestBody Recipes recipe) {

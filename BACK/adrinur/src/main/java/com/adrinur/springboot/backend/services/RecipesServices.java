@@ -16,5 +16,7 @@ public interface RecipesServices {
 	
 	public void deleteRecipe(Long id);
 	
-
+	public Recipes ingredientAssociation(Long idRecipe, Long idIngredient);
+	
+	public Recipes deleteIngredient(Long idRecipe, Long idIngredient);
 }

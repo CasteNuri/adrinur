@@ -1,11 +1,15 @@
 package com.adrinur.springboot.backend.dto;
 
+import java.util.List;
+
+import com.adrinur.springboot.backend.entities.Ingredients;
 import com.adrinur.springboot.backend.entities.Users;
 
 public class RecipesDto {
 	
 	private String title;
 	private String image;
+	private List<Ingredients> ingredients;
 	private String quantities;
 	private Long time;
 	private String difficulty;
@@ -14,11 +18,13 @@ public class RecipesDto {
 	private boolean favorite;
 	private Users user;
 	
-	public RecipesDto(String title, String image, String quantities, Long time, String difficulty, String description,
-			int rating, boolean favorite, Users user) {
+	
+	public RecipesDto(String title, String image, List<Ingredients> ingredients, String quantities, Long time,
+			String difficulty, String description, int rating, boolean favorite, Users user) {
 		super();
 		this.title = title;
 		this.image = image;
+		this.ingredients = ingredients;
 		this.quantities = quantities;
 		this.time = time;
 		this.difficulty = difficulty;
@@ -27,7 +33,7 @@ public class RecipesDto {
 		this.favorite = favorite;
 		this.user = user;
 	}
-	
+
 	public RecipesDto() {
 		
 	}
@@ -85,6 +91,14 @@ public class RecipesDto {
 	}
 	public void setUser(Users user) {
 		this.user = user;
+	}
+
+	public List<Ingredients> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredients> ingredients) {
+		this.ingredients = ingredients;
 	}
 	
 	

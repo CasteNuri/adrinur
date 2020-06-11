@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adrinur.springboot.backend.dto.UsersDto;
 import com.adrinur.springboot.backend.entities.Users;
+import com.adrinur.springboot.backend.services.RecipesServices;
 import com.adrinur.springboot.backend.services.UsersServices;
 
 
@@ -25,6 +26,9 @@ public class UsersRestController {
 
 	@Autowired
 	private UsersServices userServices;
+	
+	@Autowired
+	RecipesServices recipesServices;
 	
 	@GetMapping("/users")
 	public ResponseEntity<?> getAllUsers() {
@@ -82,6 +86,32 @@ public class UsersRestController {
         userServices.createUser(currentUser);
         return new ResponseEntity<Users>(currentUser, HttpStatus.OK);
     }
+	
+	
+	@PutMapping("/users/{idUser}/{idRecipe}")
+	public ResponseEntity<Users> addRecipe(@PathVariable Long idUser, @PathVariable Long idRecipe)  {
+		Users user = userServices.recipeAssociation(idRecipe, idUser);
+		
+		if (idUser <= 0 || idUser == null || idRecipe <= 0 || idRecipe == null) {
+            return new ResponseEntity<Users>(HttpStatus.NO_CONTENT);
+        }
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+	}
+	
+	@PutMapping("/users/delete/{idUser}/{idRecipe}")
+	public ResponseEntity<?> deleteRecipe(@PathVariable Long idUser, @PathVariable Long idRecipe)  {
+		userServices.deleteRecipe(idRecipe, idUser);
+		recipesServices.deleteRecipe(idRecipe);
+		
+		if (idUser <= 0 || idUser == null || idRecipe <= 0 || idRecipe == null) {
+            return new ResponseEntity<Users>(HttpStatus.NO_CONTENT);
+        }
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	
 	
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
