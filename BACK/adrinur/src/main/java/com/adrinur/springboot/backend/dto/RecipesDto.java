@@ -7,27 +7,29 @@ import com.adrinur.springboot.backend.entities.Users;
 
 public class RecipesDto {
 	
+	private Long codRec;
 	private String title;
 	private String image;
-	private List<Ingredients> ingredients;
 	private String quantities;
 	private Long time;
 	private String difficulty;
+	private String type;
 	private String description;
 	private int rating;
 	private boolean favorite;
 	private Users user;
 	
-	
-	public RecipesDto(String title, String image, List<Ingredients> ingredients, String quantities, Long time,
-			String difficulty, String description, int rating, boolean favorite, Users user) {
+
+	public RecipesDto(Long codRec, String title, String image, String quantities, Long time, String difficulty,
+			String type, String description, int rating, boolean favorite, Users user) {
 		super();
+		this.codRec = codRec;
 		this.title = title;
 		this.image = image;
-		this.ingredients = ingredients;
 		this.quantities = quantities;
 		this.time = time;
 		this.difficulty = difficulty;
+		this.type = type;
 		this.description = description;
 		this.rating = rating;
 		this.favorite = favorite;
@@ -93,16 +95,22 @@ public class RecipesDto {
 		this.user = user;
 	}
 
-	public List<Ingredients> getIngredients() {
-		return ingredients;
+	public Long getCodRec() {
+		return codRec;
 	}
 
-	public void setIngredients(List<Ingredients> ingredients) {
-		this.ingredients = ingredients;
+	public void setCodRec(Long codRec) {
+		this.codRec = codRec;
 	}
-	
-	
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	
 	
 
