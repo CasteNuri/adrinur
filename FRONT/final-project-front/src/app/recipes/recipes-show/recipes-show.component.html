@@ -22,8 +22,14 @@
     <div class="col">{{headers.rating}}</div>
   </div>
 
-    <recipe-item class="row no-gutters" *ngFor="let recipe of recipes | recipeFilter:search" [recipe]="recipe">
-    </recipe-item>
+  <recipe-item class="row no-gutters mt-3" *ngFor="let recipe of recipes | recipeFilter:search" [recipe]="recipe"
+    [routerLink]="['/recipes', recipe.type, recipe.codRec]">
+  </recipe-item>
 
 </div>
-<h3 *ngIf="!recipes || !(recipes.length)">No hay recetas disponibles</h3>
+<div *ngIf="!recipes || !(recipes.length)" class="mt-4">
+  <h3>No hay recetas de este tipo disponibles</h3>
+  <button class="btn btn-success mt-4 ml-4" (click)="goCreate()">
+    ¡Crea tú la primera!
+  </button>
+</div>

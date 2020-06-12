@@ -1,0 +1,31 @@
+<div *ngIf="recipe">
+  <div class="col-2 pl-2">
+    <img [src]="recipe.image" alt="" [title]="recipe.title">
+  </div>
+  <div class="col-4">
+    <a>{{recipe.title}}</a>
+  </div>
+  <div class="col">
+    <a>{{recipe.time}} min.</a>
+  </div>
+  <div class="col">
+    <a>{{recipe.difficulty}}</a>
+  </div>
+  <div class="col">
+    <star-rating [rating]="recipe.rating">
+    </star-rating>
+  </div>
+  <div class="col">
+    <ul>
+      <li *ngFor="let ingredient of ingredientsList">{{ingredient}}</li>
+    </ul>
+  </div>
+</div>
+<div class="col">
+  <button class="btn btn-danger mt-4 ml-4" (click)="eliminateRecipe()">
+    Eliminar
+  </button>
+</div>
+<div *ngIf="!recipe" class="mt-4">
+  <h3>No existe esta receta</h3>
+</div>

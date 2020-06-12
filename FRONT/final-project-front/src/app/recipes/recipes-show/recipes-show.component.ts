@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../interfaces/recipe';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'recipes-show',
@@ -21,7 +21,8 @@ export class RecipesShowComponent implements OnInit {
 
   constructor(
     private title: Title,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +43,10 @@ export class RecipesShowComponent implements OnInit {
     event.preventDefault();
     this.recipes.sort((e1, e2) => e2.rating - e1.rating);
     this.recipes = [...this.recipes];
+  }
+
+  goCreate() {
+    this.router.navigate(['recipes/add']);
   }
 
 }

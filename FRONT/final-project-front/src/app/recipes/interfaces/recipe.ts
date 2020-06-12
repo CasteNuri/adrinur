@@ -9,6 +9,6 @@ export interface Recipe {
   description: string;
   type: string;
   rating: number;
-  favourite: boolean;
+  favorite: boolean;
   user?: any;
 }

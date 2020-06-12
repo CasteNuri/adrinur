@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../interfaces/recipe';
 import { RecipesService } from '../services/recipes.service';
 import { Title } from '@angular/platform-browser';
-import { NgModel } from '@angular/forms';
+import { NgModel, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ComponentDeactivate } from 'src/app/shared/guards/save-changes.guard';
 
@@ -15,6 +15,7 @@ export class RecipeAddComponent implements OnInit, ComponentDeactivate {
   newRecipe: Recipe;
   fileImg: string;
   saved: boolean;
+  pristine = true;
 
   constructor(
     private recipesService: RecipesService,
@@ -48,7 +49,7 @@ export class RecipeAddComponent implements OnInit, ComponentDeactivate {
       description: '',
       type: '',
       rating: 0,
-      favourite: false
+      favorite: false
     };
     this.fileImg = '';
   }
@@ -63,7 +64,7 @@ export class RecipeAddComponent implements OnInit, ComponentDeactivate {
   }
 
   canDeactivate(): boolean {
-    if (this.saved) {
+    if (this.saved || this.pristine) {
       return true;
     }
     return confirm('¿Quieres abandonar la página? Los cambios no se guardarán.');
@@ -80,6 +81,19 @@ export class RecipeAddComponent implements OnInit, ComponentDeactivate {
     return {
       [validClass]: ngModel.touched && ngModel.valid && this.newRecipe.time > 0,
       [invalidClass]: ngModel.touched && (ngModel.invalid || this.newRecipe.time === 0)
+    };
+  }
+
+  getFormPristine(ngForm: NgForm) {
+    if(ngForm.pristine) {
+      this.pristine = true;
+    } else {
+      this.pristine = false;
+    }
+
+    return {
+      'ng-pristine': ngForm.pristine,
+      'ng-dirty': ngForm.dirty
     };
   }
 

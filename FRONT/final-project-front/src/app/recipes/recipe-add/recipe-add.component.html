@@ -1,4 +1,4 @@
-<form class="mt-4" (ngSubmit)="addRecipe()" #addForm="ngForm">
+<form class="mt-4" (ngSubmit)="addRecipe()" #addForm="ngForm" [ngClass]="getFormPristine(addForm)">
   <div class="form-group">
     <label for="title">Nombre</label>
     <input type="text" class="form-control" name="title" [(ngModel)]="newRecipe.title"
@@ -46,9 +46,9 @@
     <label for="difficulty">Dificultad</label>
     <select class="form-control" name="difficulty" [(ngModel)]="newRecipe.difficulty" required #difficultyModel="ngModel"
     [ngClass]="validClasses(difficultyModel, 'is-valid', 'is-invalid')">
-      <option value="Fácil">Fácil</option>
-      <option value="Media">Media</option>
-      <option value="Difícil">Difícil</option>
+      <option value="baja">Baja</option>
+      <option value="media">Media</option>
+      <option value="alta">Alta</option>
     </select>
       <div class="invalid-feedback" *ngIf="descriptionModel.errors && descriptionModel.errors.required">
         Campo requerido
@@ -58,9 +58,13 @@
     <label for="type">Tipo de receta</label>
     <select class="form-control" name="type" [(ngModel)]="newRecipe.type" required #typeModel="ngModel"
     [ngClass]="validClasses(typeModel, 'is-valid', 'is-invalid')">
-      <option value="rice">Arroz</option>
-      <option value="vegetarian">Vegetariano</option>
-      <option value="dessert">Postre</option>
+      <option value="entrantes">Entrantes</option>
+      <option value="arroz">Arroz</option>
+      <option value="carne">Carne</option>
+      <option value="pasta">Pasta</option>
+      <option value="pescado">Pescado</option>
+      <option value="vegetariano">Vegetariano</option>
+      <option value="postres">Postres</option>
     </select>
       <div class="invalid-feedback" *ngIf="descriptionModel.errors && descriptionModel.errors.required">
         Campo requerido
@@ -72,7 +76,7 @@
       #fileImage (change)="changeImage(fileImage)">
   </div>
   <img [src]="newRecipe.image" alt="" class="img-thumbnail">
-  <button type="submit" class="btn btn-success"
+  <button type="submit" class="btn btn-success mb-4"
     [disabled]="addForm.invalid || !newRecipe.image || newRecipe.time === 0">
       Crear receta
   </button>

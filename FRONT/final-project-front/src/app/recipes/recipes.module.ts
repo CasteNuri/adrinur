@@ -9,6 +9,7 @@ import { RecipeItemComponent } from './recipe-item/recipe-item.component';
 import { RecipeFilterPipe } from './pipes/recipe-filter.pipe';
 import { SharedModule } from '../shared/shared.module';
 import { RecipeAddComponent } from './recipe-add/recipe-add.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RecipeAddComponent } from './recipe-add/recipe-add.component';
     RecipesShowComponent,
     RecipeItemComponent,
     RecipeFilterPipe,
-    RecipeAddComponent
+    RecipeAddComponent,
+    RecipeDetailComponent
   ],
   imports: [
     CommonModule,

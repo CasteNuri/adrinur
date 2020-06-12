@@ -4,6 +4,9 @@ import { RecipeTypeSelectComponent } from './recipe-type-select/recipe-type-sele
 import { RecipesShowComponent } from './recipes-show/recipes-show.component';
 import { RecipeAddComponent } from './recipe-add/recipe-add.component';
 import { SaveChangesGuard } from '../shared/guards/save-changes.guard';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipesShowResolve } from './resolvers/recipes-show.resolve';
+import { RecipeDetailResolve } from './resolvers/recipe-detail.resolve';
 
 
 const routes: Routes = [
@@ -16,13 +19,19 @@ const routes: Routes = [
     component: RecipeAddComponent,
     canDeactivate: [SaveChangesGuard]
   },
-  // {
-  //   path: 'all/:id',
-  //   component:
-  // },
+  {
+    path: ':type/:id',
+    component: RecipeDetailComponent,
+    resolve: {
+      recipe: RecipeDetailResolve
+    }
+  },
   {
     path: ':type',
-    component: RecipesShowComponent
+    component: RecipesShowComponent,
+    resolve: {
+      recipes: RecipesShowResolve
+    }
   }
 ];
 
