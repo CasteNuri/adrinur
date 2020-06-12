@@ -52,7 +52,7 @@ public class RecipeRestController {
 			errorResponse.put("mensaje", "Error al acceder a la base de datos");
 			errorResponse.put("error", e.getMessage().concat(": ")
 					.concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.NOT_FOUND);
 		}
 		if(recipe == null) {
 			errorResponse.put("mensaje", "El cliente con ID".concat(id.toString().concat(" no existe")));
