@@ -52,12 +52,14 @@ public class RecipeRestController {
 			errorResponse.put("mensaje", "Error al acceder a la base de datos");
 			errorResponse.put("error", e.getMessage().concat(": ")
 					.concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		if(recipe == null) {
+		
+		if (recipe == null || id <= 0 || id == null) {
 			errorResponse.put("mensaje", "El cliente con ID".concat(id.toString().concat(" no existe")));
 			return new ResponseEntity<Map<String,Object>>(errorResponse, HttpStatus.NOT_FOUND);
-		}
+        }
+		
 		recipeDto = modelMapper.map(recipe, RecipeDto.class);
 		return new ResponseEntity<RecipeDto>(recipeDto, HttpStatus.OK);
 	}
@@ -68,10 +70,15 @@ public class RecipeRestController {
 		List<Recipe> recList = recipeServices.getRecipesByType(type);
 		List<RecipeResumeDto> resumeList = new ArrayList<RecipeResumeDto>();
 		
-		for (Recipe recipe : recList) {
+		if(recList.size() <= 0) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			for (Recipe recipe : recList) {
 	        resumeList.add(modelMapper.map(recipe, RecipeResumeDto.class));
 	    }
 		return new ResponseEntity<>(resumeList, HttpStatus.OK);
+		}
+		
 	}
 	
 	
