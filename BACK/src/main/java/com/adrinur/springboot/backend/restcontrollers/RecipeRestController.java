@@ -45,18 +45,18 @@ public class RecipeRestController {
 		RecipeDto recipeDto = null;
 		Map<String,Object> errorResponse = new HashMap();
 		
-		try {
+		//try {
 			recipe = recipeServices.getRecipeById(id);
 			if (recipe == null || id <= 0 || id == null) {
 				errorResponse.put("mensaje", "El cliente con ID".concat(id.toString().concat(" no existe")));
 				return new ResponseEntity<Map<String,Object>>(errorResponse, HttpStatus.NOT_FOUND);
 	        }
-		} catch (DataAccessException e) {
+		/*} catch (DataAccessException e) {
 			errorResponse.put("mensaje", "Error al acceder a la base de datos");
 			errorResponse.put("error", e.getMessage().concat(": ")
 					.concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String,Object>>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		}*/
 		
 		recipeDto = modelMapper.map(recipe, RecipeDto.class);
 		return new ResponseEntity<RecipeDto>(recipeDto, HttpStatus.OK);
