@@ -94,13 +94,13 @@ public class RecipeRestController {
     }
 	
 	@PutMapping("/recipes/changerating/{id}")
-    public ResponseEntity<Recipe> updateRating(@RequestBody Recipe recipe, @PathVariable Long id) {
+    public ResponseEntity<Recipe> updateRating(@RequestBody int rating, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
         if (currentRecipe == null || id <= 0 || id == null) {
             return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
         }
         
-        currentRecipe.setRating(recipe.getRating());
+        currentRecipe.setRating(rating);
         
         recipeServices.createRecipe(currentRecipe);
         return new ResponseEntity<Recipe>(currentRecipe, HttpStatus.OK);
