@@ -82,7 +82,19 @@ public class RecipeRestController {
 	
 	@GetMapping("/recipes/favorites")
 	public ResponseEntity<?> findAllFavorites() {
-		return ResponseEntity.ok().body(recipeServices.findAllFavorites());
+		ModelMapper modelMapper = new ModelMapper();
+		List<Recipe> recList = recipeServices.findAllFavorites();
+		List<RecipeResumeDto> favoriteList = new ArrayList<RecipeResumeDto>();
+		
+		if(recList.size() <= 0) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} else {
+			for (Recipe recipe : recList) {
+	        favoriteList.add(modelMapper.map(recipe, RecipeResumeDto.class));
+	    }
+		return new ResponseEntity<>(favoriteList, HttpStatus.OK);
+		}
+		
 	}
 	
 	
