@@ -98,7 +98,6 @@ public class RecipeRestController {
 	}
 	
 	
-	
 	@PutMapping("/recipes/changefav/{id}")
     public ResponseEntity<Recipe> updateFav(@RequestBody Boolean favorite, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
