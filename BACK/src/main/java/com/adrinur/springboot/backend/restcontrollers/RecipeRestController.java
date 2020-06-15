@@ -80,6 +80,13 @@ public class RecipeRestController {
 	}
 	
 	
+	@GetMapping("/recipes/favorites")
+	public ResponseEntity<?> findAllFavorites() {
+		return ResponseEntity.ok().body(recipeServices.findAllFavorites());
+	}
+	
+	
+	
 	@PutMapping("/recipes/changefav/{id}")
     public ResponseEntity<Recipe> updateFav(@RequestBody Boolean favorite, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);

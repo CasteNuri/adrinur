@@ -76,4 +76,10 @@ public class RecipeServicesImpl implements RecipeServices{
 		recipesRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Recipe> findAllFavorites() {
+		
+		return (List<Recipe>) recipesRepository.findAllFavorites();
+	}
+
 }
