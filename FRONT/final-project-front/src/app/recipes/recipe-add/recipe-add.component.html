@@ -13,7 +13,7 @@
       </div>
   </div>
   <div class="form-group">
-    <label for="quantities">Ingredientes</label>
+    <label for="quantities">Ingredientes (separados por "; ")</label>
     <textarea class="form-control" name="quantities" [(ngModel)]="newRecipe.quantities"
       rows="3" required #quantitiesModel="ngModel"
       [ngClass]="validClasses(quantitiesModel, 'is-valid', 'is-invalid')"></textarea>
@@ -31,7 +31,7 @@
       </div>
   </div>
   <div class="form-group">
-    <label for="time">Tiempo estimado en minutos</label>
+    <label for="time">Tiempo de preparación en minutos</label>
     <input type="number" class="form-control" name="time" [(ngModel)]="newRecipe.time"
       min="0" max="10000" step="1"  required #timeModel="ngModel"
       [ngClass]="validClassesTime(timeModel, 'is-valid', 'is-invalid')" />

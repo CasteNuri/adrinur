@@ -6,10 +6,34 @@
         [routerLinkActiveOptions]="{exact: true}">Recetas</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['recipes/add']" [routerLinkActive]="['active']">Crear receta</a>
+      <a class="nav-link" [routerLink]="['recipes/add']" [routerLinkActive]="['active']" *ngIf="logged">Crear receta</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['info']" [routerLinkActive]="['active']">Acerca de nosotros</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav navbar-right">
+    <li class="nav-item" *ngIf="!logged">
+      <a class="nav-link" [routerLink]="['auth/login']" [routerLinkActive]="['active']">Iniciar sesión</a>
+    </li>
+
+    <li class="dropdown">
+      <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown link
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" [routerLink]="['recipes']" [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{exact: true}">Favoritos</a>
+        <a class="dropdown-item" *ngIf="!logged" (click)="logout()">Logout</a>
+      </div>
+    </li>
+
+
+
+
+    <li class="nav-item" *ngIf="logged">
+      <a class="nav-link" (click)="logout()">Cerrar sesión</a>
     </li>
   </ul>
 </nav>

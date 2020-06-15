@@ -29,7 +29,8 @@ export class RecipesShowComponent implements OnInit {
     this.title.setTitle('Recetas | El Recetario');
 
     this.route.data.subscribe(
-      data => this.recipes = data.recipes
+      data => this.recipes = data.recipes,
+      error => this.recipes = null
     );
   }
 

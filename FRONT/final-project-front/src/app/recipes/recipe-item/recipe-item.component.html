@@ -1,5 +1,5 @@
   <div class="col-2 pl-2">
-    <img [src]="recipe.image" alt="" [title]="recipe.title" style="width: 60px; height: 40px;">
+    <img [src]="recipe.image" alt="" [title]="recipe.title">
   </div>
   <div class="col-4">
     <a>{{recipe.title}}</a>
@@ -8,7 +8,7 @@
     <a>{{recipe.time}} min.</a>
   </div>
   <div class="col">
-    <a>{{recipe.difficulty}}</a>
+    <a>{{recipe.difficulty | pascalCaseFilter}}</a>
   </div>
   <div class="col">
     <static-star-rating [rating]="recipe.rating">

@@ -1,0 +1,12 @@
+<form class="pt-4" role="form" (ngSubmit)="login()">
+  <legend>Iniciar sesión</legend>
+  <div class="form-group">
+    <label for="userName">Nombre de usuario:</label>
+    <input type="userName" class="form-control" name="userName" placeholder="Nombre de usuario" [(ngModel)]="userLogin.userName">
+    <label for="password">Contraseña:</label>
+    <input type="password" class="form-control" name="password" placeholder="Contraseña" [(ngModel)]="userLogin.password">
+  </div>
+  <p class="text-danger" *ngIf="(error)">{{error}}</p>
+  <a class="btn btn-secondary" [routerLink]="['/auth/register']" role="button">Crear cuenta</a>
+  <button type="submit" class="btn btn-success ml-4">Entrar</button>
+</form>

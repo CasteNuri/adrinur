@@ -1,0 +1,58 @@
+<form class="mt-4" role="form" #formRegistro="ngForm" (ngSubmit)="registrarse()">
+  <legend>Crea una cuenta nueva</legend>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" name="email" placeholder="Email"
+    [(ngModel)]="user.email" required #emailModel="ngModel"
+    [ngClass]="validClasses(emailModel, 'is-valid', 'is-invalid')">
+    <div class="invalid-feedback" *ngIf="emailModel.errors">
+      Campo requerido
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="userName">Nombre de usuario:</label>
+    <input type="text" class="form-control" name="userName" placeholder="Nombre de usuario"
+    [(ngModel)]="user.userName" required #userNameModel="ngModel"
+    [ngClass]="validClasses(userNameModel, 'is-valid', 'is-invalid')">
+    <div class="invalid-feedback" *ngIf="userNameModel.errors">
+      Campo requerido
+    </div>
+  </div>
+
+  <div ngModelGroup="repeatPassword" #repeatPasswordModel="ngModelGroup" sameValue>
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input type="password" class="form-control" name="password" placeholder="Contraseña"
+        [(ngModel)]="user.password" required  #passModel="ngModel"
+        [ngClass]="validClasses(passModel, 'is-valid', 'is-invalid')">
+        <div class="invalid-feedback" *ngIf="passModel.errors">
+          Campo requerido
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="password2">Repetir contraseña:</label>
+      <input type="password" class="form-control" name="password2" placeholder="Contraseña" ngModel
+      [ngClass]="validClasses(repeatPasswordModel, 'is-valid', 'is-invalid')">
+      <div class="invalid-feedback" *ngIf="repeatPasswordModel.errors">
+        Las contraseñas no coinciden
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="avatar">Avatar:</label>
+    <input type="file" class="form-control" name="avatar"
+      ngModel required #avatarFile #avatarModel="ngModel" (change)="changeImage(avatarFile)"
+      [ngClass]="validClasses(avatarModel, 'is-valid', 'is-invalid')">
+      <div class="invalid-feedback" *ngIf="avatarModel.errors">
+        Campo requerido
+      </div>
+  </div>
+  <div>
+    <img [src]="user.avatar" class="img-thumbnail">
+  </div>
+  <a class="btn btn-secondary" [routerLink]="['/auth', 'login']" role="button">Cancelar</a>
+  <button type="submit" class="btn btn-success ml-4" [disabled]="formRegistro.invalid">Registrarse</button>
+</form>

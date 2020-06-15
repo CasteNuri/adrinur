@@ -1,31 +1,70 @@
 <div *ngIf="recipe">
-  <div class="col-2 pl-2">
-    <img [src]="recipe.image" alt="" [title]="recipe.title">
+  <div class="row m-4">
+    <div class="col">
+      <a class="title font-weight-bold">{{recipe.title}}</a>
+      <favorite class="ml-3" [favorite]="recipe.favorite" (favoriteChanged)="switchFavorite($event)" *ngIf="logged"></favorite>
+    </div>
+
+    <div class="col d-flex justify-content-end" *ngIf="logged">
+      <button class="btn btn-danger" (click)="eliminateRecipe()">
+        Eliminar
+      </button>
+    </div>
   </div>
-  <div class="col-4">
-    <a>{{recipe.title}}</a>
+
+  <div class="row mt-4">
+    <div class="col d-flex justify-content-center">
+      <img [src]="recipe.image" alt="{{recipe.title}}" [title]="recipe.title" class="rounded-lg">
+    </div>
+
+    <div class="col">
+      <div class="row mt-3">
+        <div class="col">
+          <a>Tiempo de preparación:</a>
+        </div>
+        <div class="col mr-5">
+          <a>{{recipe.time}} min.</a>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <a>Dificultad:</a>
+        </div>
+        <div class="col mr-5">
+          <a>{{recipe.difficulty | pascalCaseFilter}}</a>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+          <a>Valoración:</a>
+        </div>
+        <div class="col mr-5">
+          <star-rating [rating]="recipe.rating" (ratingChanged)="changeRating($event)" *ngIf="logged">
+          </star-rating>
+          <static-star-rating [rating]="recipe.rating" *ngIf="!logged">
+          </static-star-rating>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col">
-    <a>{{recipe.time}} min.</a>
+
+  <div class="row mt-3 ml-4">
+    <div class="col-6">
+      <p class="subtitle">Procedimiento a seguir:</p>
+      <p class="text-justify mt-2">{{recipe.description}}</p>
+    </div>
+    <div class="col d-flex justify-content-center">
+    <div class="d-flex flex-column">
+      <p class="subtitle">Lista de ingredientes:</p>
+      <ul>
+        <li *ngFor="let ingredient of ingredientsList">{{ingredient}}</li>
+      </ul>
+    </div>
+    </div>
   </div>
-  <div class="col">
-    <a>{{recipe.difficulty}}</a>
-  </div>
-  <div class="col">
-    <star-rating [rating]="recipe.rating">
-    </star-rating>
-  </div>
-  <div class="col">
-    <ul>
-      <li *ngFor="let ingredient of ingredientsList">{{ingredient}}</li>
-    </ul>
-  </div>
+
 </div>
-<div class="col">
-  <button class="btn btn-danger mt-4 ml-4" (click)="eliminateRecipe()">
-    Eliminar
-  </button>
-</div>
+
 <div *ngIf="!recipe" class="mt-4">
   <h3>No existe esta receta</h3>
 </div>

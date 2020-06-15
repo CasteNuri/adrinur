@@ -31,4 +31,12 @@ export class RecipesService {
     return this.http.delete<void>(this.recipesURL + '/' + id);
   }
 
+  updateFav(id: number, favorite: boolean): Observable<Recipe> {
+    return this.http.put<Recipe>(this.recipesURL + '/changefav/' + id, +favorite);
+  }
+
+  updateRating(id: number, rating: number): Observable<Recipe> {
+    return this.http.put<Recipe>(this.recipesURL + '/changerating/' + id, rating);
+  }
+
 }

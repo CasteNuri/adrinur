@@ -7,6 +7,8 @@ import { MenuModule } from './menu/menu.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    MenuModule
+    MenuModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

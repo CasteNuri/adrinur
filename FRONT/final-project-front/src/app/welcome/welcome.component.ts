@@ -8,6 +8,9 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+  images = ['appetizers', 'rice', 'meat', 'pasta', 'fish', 'vegetarian', 'dessert', 'all'].map((n) => `../../../assets/${n}.jpg`);
+  imgRoute = ['entrantes', 'arroz', 'carne', 'pasta', 'pescado', 'vegetariano', 'postres', 'all'];
+  imgTitle = ['Entrantes', 'Arroz', 'Carne', 'Pasta', 'Pescado', 'Vegetariano', 'Postres', 'Todas las recetas'];
 
   constructor(
     private title: Title,

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RecipesService } from '../services/recipes.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Recipe } from '../interfaces/recipe';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class RecipesShowResolve implements Resolve<Recipe[]> {
         if (type === 'all') {
           return this.recipesService.getAllRecipes();
         } else {
-          return this.recipesService.getRecipesByType(type);
+          return this.recipesService.getRecipesByType(type).pipe(
+            catchError(e => of(null))
+          );
         }
   }
 
