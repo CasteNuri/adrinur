@@ -1,8 +1,12 @@
 package com.adrinur.springboot.backend.restcontrollers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,5 +124,26 @@ public class UserRestController {
 		return ResponseEntity.noContent().build();
 	}
 
+	
+	
+	@PostMapping("/users/login")
+	public ResponseEntity<?> validationUser(@Validated @RequestBody Users user) {
+		Map<String,Object> response = new HashMap();
+		String message;
+		
+		Users userDataBase = userServices.matchUserDataBase(user.getUserName(), user.getPassword());
+		
+		if(userDataBase.getId() != -1.0) {
+			message = "ok";
+			response.put("ok", true);
+			response.put("user", userDataBase);
+		} else {
+			message = "false";
+			response.put("ok", false);
+		}
+		
+		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
+	}
+	
 	
 }

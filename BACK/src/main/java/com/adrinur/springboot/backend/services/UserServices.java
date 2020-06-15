@@ -17,4 +17,6 @@ public interface UserServices {
 	public Users deleteRecipe(Long idRecipe, Long idUser);
 	
 	public void deleteUser(Long id);
+	
+	public Users matchUserDataBase(String username, String password);
 }

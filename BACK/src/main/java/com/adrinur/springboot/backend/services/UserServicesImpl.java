@@ -73,4 +73,11 @@ public class UserServicesImpl implements UserServices{
 		usersRepository.deleteById(id);
 	}
 
+	
+	
+	@Override
+	public Users matchUserDataBase(String username, String password) {
+		return usersRepository.matchUserDataBase(username, password).orElse(new Users((long) -1.0));
+	}
+
 }

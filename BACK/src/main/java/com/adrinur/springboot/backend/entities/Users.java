@@ -40,6 +40,27 @@ public class Users implements Serializable {
 	@OneToMany
 	private List<Recipe> recipes;
 
+	
+	
+	public Users() {
+		
+	}
+
+	public Users(Long id) {
+		this.id = id;
+	}
+
+
+	public Users(Long id, String userName, String email, String password, String avatar, List<Recipe> recipes) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.avatar = avatar;
+		this.recipes = recipes;
+	}
+
 	/**
 	 * Getters && Setters
 	 */
