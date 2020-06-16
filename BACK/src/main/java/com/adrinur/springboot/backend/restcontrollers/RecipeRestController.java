@@ -35,7 +35,8 @@ public class RecipeRestController {
 	
 	@GetMapping("/recipes")
 	public ResponseEntity<?> getAllRecipes() {
-		return ResponseEntity.ok().body(recipeServices.getAllRecipes());
+		ModelMapper modelMapper = new ModelMapper();
+		return ResponseEntity.ok().body(recipeServices.getAllRecipes().stream().map(r -> modelMapper.map(r, RecipeDto.class)));
 	}
 	
 	@GetMapping("/recipes/detail/{id}")
