@@ -13,6 +13,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>{
 
 	List<Recipe> findAllByType(String type);
 	
-	@Query(value = "SELECT r FROM recipe r WHERE r.favorite = true", nativeQuery = true)
+	@Query("SELECT CASE WHEN EXISTS (SELECT r FROM recipe r WHERE r.favorite = true) THEN TRUE ELSE FALSE END")
 	List<Recipe> findAllFavorites();
 }

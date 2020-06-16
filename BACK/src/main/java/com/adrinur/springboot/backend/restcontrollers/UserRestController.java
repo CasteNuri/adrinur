@@ -1,5 +1,6 @@
 package com.adrinur.springboot.backend.restcontrollers;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,8 +125,6 @@ public class UserRestController {
 		return ResponseEntity.noContent().build();
 	}
 
-	
-	
 	@PostMapping("/users/login")
 	public ResponseEntity<?> validationUser(@Validated @RequestBody Users user) {
 		Map<String,Object> response = new HashMap();

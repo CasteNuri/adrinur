@@ -79,7 +79,7 @@ public class RecipeServicesImpl implements RecipeServices{
 	@Override
 	public List<Recipe> findAllFavorites() {
 		
-		return (List<Recipe>) recipesRepository.findAllFavorites();
+		return recipesRepository.findAllFavorites();
 	}
 
 }
