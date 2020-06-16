@@ -80,8 +80,8 @@ public class RecipeRestController {
 	}
 	
 	
-	@GetMapping("/recipes/favorites/{favorite}")
-	public ResponseEntity<?> findAllFavorites(@PathVariable Boolean favorite) {
+	@GetMapping("/recipes/favorites")
+	public ResponseEntity<?> findAllFavorites() {
 		ModelMapper modelMapper = new ModelMapper();
 		List<Recipe> recList = recipeServices.findAllFavorites();
 		List<RecipeResumeDto> favoriteList = new ArrayList<RecipeResumeDto>();
