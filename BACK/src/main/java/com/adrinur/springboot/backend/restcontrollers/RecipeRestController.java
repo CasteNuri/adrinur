@@ -101,30 +101,28 @@ public class RecipeRestController {
 	
 	
 	@PutMapping("/recipes/changefav/{id}")
-    public ResponseEntity<Recipe> updateFav(Authentication authentication, @RequestBody Boolean favorite, @PathVariable Long id) {
+    public ResponseEntity<Recipe> updateFav(@RequestBody Boolean favorite, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
-        Long idCreator = ((Integer)authentication.getCredentials()).longValue();
         if (currentRecipe == null || id <= 0 || id == null) {
             return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
         }
         
         currentRecipe.setFavorite(favorite);
         
-        recipeServices.createRecipe(currentRecipe, idCreator);
+        recipeServices.save(currentRecipe);
         return new ResponseEntity<Recipe>(currentRecipe, HttpStatus.OK);
     }
 	
 	@PutMapping("/recipes/changerating/{id}")
-    public ResponseEntity<Recipe> updateRating(Authentication authentication, @RequestBody int rating, @PathVariable Long id) {
+    public ResponseEntity<Recipe> updateRating(@RequestBody int rating, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
-        Long idCreator = ((Integer)authentication.getCredentials()).longValue();
         if (currentRecipe == null || id <= 0 || id == null) {
             return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
         }
         
         currentRecipe.setRating(rating);
         
-        recipeServices.createRecipe(currentRecipe, idCreator);
+        recipeServices.save(currentRecipe);
         return new ResponseEntity<Recipe>(currentRecipe, HttpStatus.OK);
     }
 	

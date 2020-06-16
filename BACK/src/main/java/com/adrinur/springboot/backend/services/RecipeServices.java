@@ -21,4 +21,6 @@ public interface RecipeServices {
 	public void deleteRecipe(Long id);
 	
 	public List<Recipe> findAllFavorites();
+	
+	public Recipe save(Recipe recipe);
 }

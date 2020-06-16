@@ -106,4 +106,9 @@ public class RecipeServicesImpl implements RecipeServices{
 		return favorites;
 	}
 
+	@Override
+	public Recipe save(Recipe recipe) {
+		return recipesRepository.save(recipe);
+	}
+
 }

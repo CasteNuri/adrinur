@@ -24,9 +24,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table
 @Entity
 public class Recipe implements Serializable{
-
-	
-
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -40,7 +37,8 @@ public class Recipe implements Serializable{
 	private String image;
 	
 	@ManyToMany
-	@JoinTable(name="recipes_ingredients", joinColumns = @JoinColumn(name = "codRec"), inverseJoinColumns = @JoinColumn(name = "serialNumber"))
+	@JoinTable(name="recipes_ingredients", joinColumns = @JoinColumn(name = "codRec"), 
+	inverseJoinColumns = @JoinColumn(name = "serialNumber"))
 	private List<Ingredient> ingredients;
 
 	@Column(columnDefinition = "text")
