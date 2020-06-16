@@ -1,6 +1,8 @@
 package com.adrinur.springboot.backend.dto;
 
-public class UserRegisterDto {
+import java.io.Serializable;
+
+public class UserRegisterDto implements Serializable{
 
 	private String userName;
 	private String email;

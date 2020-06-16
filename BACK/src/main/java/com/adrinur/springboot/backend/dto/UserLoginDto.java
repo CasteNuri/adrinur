@@ -1,6 +1,8 @@
 package com.adrinur.springboot.backend.dto;
 
-public class UserLoginDto {
+import java.io.Serializable;
+
+public class UserLoginDto implements Serializable{
 
 	private String email;
 	private String password;

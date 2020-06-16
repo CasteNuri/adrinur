@@ -1,5 +1,6 @@
 package com.adrinur.springboot.backend.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -7,7 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.adrinur.springboot.backend.entities.Recipe;
 import com.adrinur.springboot.backend.entities.Users;
 
-public class UserDto {
+public class UserDto implements Serializable{
 
 	private Long id;
 	private String userName;

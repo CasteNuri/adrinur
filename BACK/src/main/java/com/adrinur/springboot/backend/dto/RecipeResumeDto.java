@@ -1,9 +1,11 @@
 package com.adrinur.springboot.backend.dto;
 
 
+import java.io.Serializable;
+
 import com.adrinur.springboot.backend.entities.Users;
 
-public class RecipeResumeDto {
+public class RecipeResumeDto implements Serializable{
 	private Long codRec;
 	private String title;
 	private String image;
