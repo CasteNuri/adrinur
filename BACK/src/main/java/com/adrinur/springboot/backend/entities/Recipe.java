@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 public class Recipe implements Serializable{
 
+	
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -62,8 +64,32 @@ public class Recipe implements Serializable{
 	@ManyToOne
 	private Users user;
 
+	public Recipe() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
+	
+	public Recipe(Long codRec, String title, String image, List<Ingredient> ingredients, String quantities, Long time,
+			String difficulty, String type, String description, int rating, Boolean favorite, Users user) {
+		super();
+		this.codRec = codRec;
+		this.title = title;
+		this.image = image;
+		this.ingredients = ingredients;
+		this.quantities = quantities;
+		this.time = time;
+		this.difficulty = difficulty;
+		this.type = type;
+		this.description = description;
+		this.rating = rating;
+		this.favorite = favorite;
+		this.user = user;
+	}
+
+
+
 	/**
 	 * Getters && Setters
 	 * 

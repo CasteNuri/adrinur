@@ -1,6 +1,7 @@
 package com.adrinur.springboot.backend.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -78,8 +79,12 @@ public class RecipeServicesImpl implements RecipeServices{
 
 	@Override
 	public List<Recipe> findAllFavorites() {
+		List<Recipe> recipesList = recipesRepository.findAll();
 		
-		return recipesRepository.findAllFavorites();
+		List<Recipe> favorites = recipesList.stream()
+				.filter(recipe -> recipe.getFavorite().equals(true))
+				.collect(Collectors.toList());;
+		return favorites;
 	}
 
 }

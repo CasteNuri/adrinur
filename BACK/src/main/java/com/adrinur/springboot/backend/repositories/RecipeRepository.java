@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.adrinur.springboot.backend.entities.Recipe;
@@ -13,6 +14,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>{
 
 	List<Recipe> findAllByType(String type);
 	
-	@Query("SELECT CASE WHEN EXISTS (SELECT r FROM recipe r WHERE r.favorite = true) THEN TRUE ELSE FALSE END")
-	List<Recipe> findAllFavorites();
+//	@Query("SELECT r FROM recipe r WHERE r.favorite = ?1")
+//	List<Recipe> findAllFavorites(@Param("favorite") Boolean favorite);
 }
