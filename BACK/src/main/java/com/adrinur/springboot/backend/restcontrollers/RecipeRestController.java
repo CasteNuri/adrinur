@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,28 +100,30 @@ public class RecipeRestController {
 	
 	
 	@PutMapping("/recipes/changefav/{id}")
-    public ResponseEntity<Recipe> updateFav(@RequestBody Boolean favorite, @PathVariable Long id) {
+    public ResponseEntity<Recipe> updateFav(Authentication authentication, @RequestBody Boolean favorite, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
+        Long idCreator = ((Integer)authentication.getCredentials()).longValue();
         if (currentRecipe == null || id <= 0 || id == null) {
             return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
         }
         
         currentRecipe.setFavorite(favorite);
         
-        recipeServices.createRecipe(currentRecipe);
+        recipeServices.createRecipe(currentRecipe, idCreator);
         return new ResponseEntity<Recipe>(currentRecipe, HttpStatus.OK);
     }
 	
 	@PutMapping("/recipes/changerating/{id}")
-    public ResponseEntity<Recipe> updateRating(@RequestBody int rating, @PathVariable Long id) {
+    public ResponseEntity<Recipe> updateRating(Authentication authentication, @RequestBody int rating, @PathVariable Long id) {
         Recipe currentRecipe = recipeServices.getRecipeById(id);
+        Long idCreator = ((Integer)authentication.getCredentials()).longValue();
         if (currentRecipe == null || id <= 0 || id == null) {
             return new ResponseEntity<Recipe>(HttpStatus.NOT_FOUND);
         }
         
         currentRecipe.setRating(rating);
         
-        recipeServices.createRecipe(currentRecipe);
+        recipeServices.createRecipe(currentRecipe, idCreator);
         return new ResponseEntity<Recipe>(currentRecipe, HttpStatus.OK);
     }
 	
@@ -149,12 +152,12 @@ public class RecipeRestController {
 	
 	
 	@PostMapping("/recipes")
-	public ResponseEntity<?> createRecipe(@RequestBody Recipe recipe) {
-		
+	public ResponseEntity<?> createRecipe(Authentication authentication, @RequestBody Recipe recipe) {
+		Long idCreator = ((Integer)authentication.getCredentials()).longValue();
 		Recipe newRecipe = null;
 		Map<String,Object> errorResponse = new HashMap();
 		try {
-			newRecipe = recipeServices.createRecipe(recipe);
+			newRecipe = recipeServices.createRecipe(recipe, idCreator);
 		} catch (DataAccessException e) {
 			errorResponse.put("mensaje", "Error al insertar en la base de datos");
 			errorResponse.put("error", e.getMessage()
@@ -167,9 +170,16 @@ public class RecipeRestController {
 	}
 	
 	@DeleteMapping("/recipes/{id}")
-	public ResponseEntity<?> deleteRecipe(@PathVariable Long id) {
+	public ResponseEntity<?> deleteRecipe(Authentication authentication, @PathVariable Long id) {
+		Long idCreatorToken = ((Integer)authentication.getCredentials()).longValue();
+		Recipe recipe = recipeServices.getRecipeById(id);
+		Long idCreatorRecipe = recipe.getUser().getId();
 		if (id == null || id <= 0) {
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		}
+		
+		if(idCreatorToken != idCreatorRecipe) {
+			return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
 		}
 		recipeServices.deleteRecipe(id);
 		return ResponseEntity.noContent().build();

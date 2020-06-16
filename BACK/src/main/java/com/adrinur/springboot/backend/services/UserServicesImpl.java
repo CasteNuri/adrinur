@@ -1,5 +1,6 @@
 package com.adrinur.springboot.backend.services;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -7,10 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.adrinur.springboot.backend.dto.UserRegisterDto;
 import com.adrinur.springboot.backend.entities.Recipe;
 import com.adrinur.springboot.backend.entities.Users;
 import com.adrinur.springboot.backend.repositories.RecipeRepository;
 import com.adrinur.springboot.backend.repositories.UserRepository;
+import com.adrinur.springboot.backend.utils.ImageUtils;
+import com.adrinur.springboot.backend.utils.SecurityUtils;
 
 @Service
 public class UserServicesImpl implements UserServices{
@@ -21,6 +25,11 @@ public class UserServicesImpl implements UserServices{
 	@Autowired
 	private RecipeRepository recipesRepository;
 	
+	@Autowired
+	public ImageUtils imageUtils;
+	
+	@Autowired
+	public SecurityUtils securityUtils;
 	
 	
 	@Override
@@ -34,9 +43,8 @@ public class UserServicesImpl implements UserServices{
 	}
 
 	@Override
-	@Transactional
-	public Users createUser(Users user) {
-		return usersRepository.save(user);
+	public Users findUserByUserName(String userName) {
+		return usersRepository.findUserByUserName(userName);
 	}
 
 	@Override
@@ -74,8 +82,24 @@ public class UserServicesImpl implements UserServices{
 	}
 
 	@Override
-	public Users matchUserDataBase(String username, String password) {
-		return usersRepository.matchUserDataBase(username, password).orElse(new Users((long) -1.0));
+	public Users login(String email, String password) throws NoSuchAlgorithmException{
+		
+		return usersRepository.login(email, securityUtils.encodePassword(password));
+	}
+
+
+	public void register(UserRegisterDto userDto) throws NoSuchAlgorithmException {
+		Users newUser = new Users();
+		newUser.setAvatar(imageUtils.saveImageBase64("users", userDto.getAvatar()));
+		newUser.setPassword(securityUtils.encodePassword(userDto.getPassword()));
+		newUser.setEmail(userDto.getEmail());
+		newUser.setUserName(userDto.getUserName());
+		this.usersRepository.save(newUser);
+	}
+
+	@Override
+	public Users save(Users user) {
+		return usersRepository.save(user);
 	}
 	
 }

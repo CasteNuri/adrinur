@@ -12,7 +12,7 @@ public interface RecipeServices {
 
 	public List<Recipe> getRecipesByType(String type);
 
-	public Recipe createRecipe(Recipe recipe);
+	public Recipe createRecipe(Recipe recipe, Long idUser);
 
 	public Recipe ingredientAssociation(Long idRecipe, Long idIngredient);
 

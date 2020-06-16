@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,12 +62,15 @@ public class Recipe implements Serializable{
 	@Column(columnDefinition = "boolean default false")
 	private Boolean favorite;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="userId")
 	private Users user;
 
+	/**
+	 * Constructors
+	 */
 	public Recipe() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	

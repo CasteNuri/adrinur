@@ -2,21 +2,28 @@ package com.adrinur.springboot.backend.dto;
 
 import java.util.List;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.adrinur.springboot.backend.entities.Recipe;
 import com.adrinur.springboot.backend.entities.Users;
 
 public class UserDto {
 
+	private Long id;
 	private String userName;
+	private String email;
 	private String avatar;
 	private List<Recipe> recipes;
 	
 	
-	public UserDto(Users user) {
-		super();
-		this.userName = user.getUserName();
-		this.avatar = user.getAvatar();
-		this.recipes = user.getRecipes();
+	public static UserDto fromEntity(Users user) {
+		UserDto dto = new UserDto();
+		dto.setId(user.getId());
+		dto.setEmail(user.getEmail());
+		dto.setUserName(user.getUserName());
+		dto.setAvatar(ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + '/' + user.getAvatar());
+		
+		return dto;
 	}
 	
 	
@@ -44,5 +51,20 @@ public class UserDto {
 		this.recipes = recipes;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 }

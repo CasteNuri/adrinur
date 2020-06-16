@@ -12,6 +12,8 @@ import com.adrinur.springboot.backend.entities.Ingredient;
 import com.adrinur.springboot.backend.entities.Recipe;
 import com.adrinur.springboot.backend.repositories.IngredientRepository;
 import com.adrinur.springboot.backend.repositories.RecipeRepository;
+import com.adrinur.springboot.backend.repositories.UserRepository;
+import com.adrinur.springboot.backend.utils.ImageUtils;
 
 @Service
 public class RecipeServicesImpl implements RecipeServices{
@@ -22,6 +24,12 @@ public class RecipeServicesImpl implements RecipeServices{
 	
 	@Autowired
 	private IngredientRepository ingredientsRepository;
+	
+	@Autowired
+	private UserRepository usersRepository;
+	
+	@Autowired
+	public ImageUtils imageUtils;
 	
 	
 	@Override
@@ -40,7 +48,18 @@ public class RecipeServicesImpl implements RecipeServices{
 	}
 
 	@Override
-	public Recipe createRecipe(Recipe recipe) {
+	@Transactional
+	public Recipe createRecipe(Recipe recipe, Long idCreator) {
+		
+		Recipe rec = new Recipe();
+		rec.setTitle(recipe.getTitle());
+		rec.setDescription(recipe.getDescription());
+		rec.setQuantities(recipe.getQuantities());
+		rec.setDifficulty(recipe.getDifficulty());
+		rec.setTime(recipe.getTime());
+		rec.setType(recipe.getType());
+		rec.setImage(imageUtils.saveImageBase64("eventos", recipe.getImage()));
+		rec.setUser(usersRepository.findById(idCreator).get());
 		return recipesRepository.save(recipe);
 	}
 
