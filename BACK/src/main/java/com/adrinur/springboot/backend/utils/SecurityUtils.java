@@ -1,25 +1,21 @@
 package com.adrinur.springboot.backend.utils;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component("securityUtils")
 public class SecurityUtils {
 
-	@Autowired
-	private BCryptPasswordEncoder bCrypt;
 	
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 	
 	public String encodePassword(String pass) throws NoSuchAlgorithmException {
-		String encodedPass = bCrypt.encode(pass);
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] hash = digest.digest(pass.getBytes(StandardCharsets.UTF_8));
+		String encodedPass = Base64.getEncoder().encodeToString(hash);
 		return encodedPass;
 	}
 }

@@ -20,6 +20,7 @@ import com.adrinur.springboot.backend.dto.UserRegisterDto;
 import com.adrinur.springboot.backend.entities.Users;
 import com.adrinur.springboot.backend.security.SecurityConstants;
 import com.adrinur.springboot.backend.services.UserServices;
+import com.adrinur.springboot.backend.utils.SecurityUtils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,6 +32,9 @@ public class AuthController {
 	@Autowired
 	private UserServices usersServices;
 	
+	@Autowired
+	SecurityUtils security;
+	
 	@PostMapping("/login")
 	public ResponseEntity<Map<String,Object>> login(@RequestBody UserLoginDto userLogin) throws NoSuchAlgorithmException {
 		Map<String, Object> resp = new HashMap<>();
@@ -41,7 +45,9 @@ public class AuthController {
 			resp.put("accessToken", getToken(user));
 			return ResponseEntity.ok().body(resp);
 		} else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+			resp.put("user", userLogin);
+			resp.put("pass", security.encodePassword(userLogin.getPassword()));
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resp);
 		}
 	}
 	
