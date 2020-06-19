@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class LoginPageComponent implements OnInit {
   userLogin: User = {
-    userName: '',
+    email: '',
     password: ''
   };
   error = '';
@@ -29,7 +29,7 @@ export class LoginPageComponent implements OnInit {
   login() {
     this.authService.login(this.userLogin).subscribe(
       () => this.router.navigate(['/recipes']),
-      error => this.error = 'Usuario y/o contraseña no válidos'
+      error => this.error = 'Email y/o contraseña no válidos'
     );
   }
 

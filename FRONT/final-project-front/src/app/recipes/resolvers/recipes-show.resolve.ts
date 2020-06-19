@@ -15,6 +15,8 @@ export class RecipesShowResolve implements Resolve<Recipe[]> {
         const type = '' + route.params.type;
         if (type === 'all') {
           return this.recipesService.getAllRecipes();
+        } else if (type === 'favorite') {
+          return this.recipesService.findAllFavorites();
         } else {
           return this.recipesService.getRecipesByType(type).pipe(
             catchError(e => of(null))

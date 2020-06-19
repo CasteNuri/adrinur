@@ -15,6 +15,10 @@ export class RecipesService {
     return this.http.get<Recipe[]>(this.recipesURL);
   }
 
+  findAllFavorites(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>(this.recipesURL + '/favorites');
+  }
+
   getRecipesByType(type: string): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(this.recipesURL + '/resume/' + type);
   }

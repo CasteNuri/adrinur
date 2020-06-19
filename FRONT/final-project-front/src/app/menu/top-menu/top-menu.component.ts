@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TopMenuComponent implements OnInit {
   logged = false;
-  nick: string;
+  email: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -18,8 +18,8 @@ export class TopMenuComponent implements OnInit {
       (logged: boolean) => {
         this.logged = logged;
         if (logged) {
-          this.authService.nickName$.subscribe(
-            (nick: string) => this.nick
+          this.authService.email$.subscribe(
+            (email: string) => this.email = email
           );
         }
       }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../interfaces/recipe';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'recipes-show',
@@ -18,15 +19,19 @@ export class RecipesShowComponent implements OnInit {
     difficulty: 'Dificultad',
     rating: 'Valoración'
   };
+  logged = false;
 
   constructor(
     private title: Title,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.title.setTitle('Recetas | El Recetario');
+
+    this.logged = this.authService.isLogged();
 
     this.route.data.subscribe(
       data => this.recipes = data.recipes,

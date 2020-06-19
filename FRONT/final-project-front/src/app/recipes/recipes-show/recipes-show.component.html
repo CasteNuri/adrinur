@@ -29,7 +29,7 @@
 </div>
 <div *ngIf="!recipes || !(recipes.length)" class="mt-4">
   <h3>No hay recetas de este tipo disponibles</h3>
-  <button class="btn btn-success mt-4 ml-4" (click)="goCreate()">
+  <button class="btn btn-success mt-4 ml-4" (click)="goCreate()" *ngIf="logged">
     ¡Crea tú la primera!
   </button>
 </div>

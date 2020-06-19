@@ -26,9 +26,7 @@ export class RecipeDetailComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Recetas | El Recetario');
 
-    this.authService.loginChange$.subscribe(
-      (logged: boolean) => this.logged = logged
-    );
+    this.logged = this.authService.isLogged();
 
     this.route.data.subscribe(
       data => {
